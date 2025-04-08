@@ -17,7 +17,10 @@ inline Queue<T>::Queue(const Queue<T>& other){ copy(other); }
 template<class T>
 inline Queue<T>& Queue<T>::operator=(const Queue<T>& other)
 {
-    copy(other);
+    if (this != &other)
+    {
+        copy(other);
+    }
 
     return *this;
 }
@@ -25,10 +28,7 @@ inline Queue<T>& Queue<T>::operator=(const Queue<T>& other)
 template<class T>
 inline void Queue<T>::copy(const Queue<T>& other)
 {
-    if (this != &other)
-    {
-        list = other.list;
-    }
+    list = other.list;
 }
 
 template<class T>

@@ -29,7 +29,10 @@ inline Graph<T>::Graph(const Graph<T>& other){ copy(other); }
 template<class T>
 inline Graph<T>& Graph<T>::operator=(const Graph<T>& other)
 {
-    copy(other);
+    if (this != &other)
+    {
+        copy(other);
+    }
 
     return *this;
 }
@@ -37,12 +40,9 @@ inline Graph<T>& Graph<T>::operator=(const Graph<T>& other)
 template<class T>
 inline void Graph<T>::copy(const Graph<T>& other)
 {
-    if (this != &other)
-    {
-        V = other.V;
-        adjacencyList = other.adjacencyList;
-        visited = other.visited;
-    } 
+    V = other.V;
+    adjacencyList = other.adjacencyList;
+    visited = other.visited; 
 }
 
 template<class T>
