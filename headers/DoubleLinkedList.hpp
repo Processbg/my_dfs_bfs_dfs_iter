@@ -122,12 +122,17 @@ inline DoubleLinkedList<T>::DoubleLinkedList(): numberOfElements(0), first(nullp
 {}
 
 template<class T>
-inline DoubleLinkedList<T>::DoubleLinkedList(const DoubleLinkedList<T>& other){ copy(other); }
+inline DoubleLinkedList<T>::DoubleLinkedList(const DoubleLinkedList<T>& other): numberOfElements(0), first(nullptr), last(nullptr)
+{ copy(other); }
 
 template<class T>
 inline DoubleLinkedList<T>& DoubleLinkedList<T>::operator=(const DoubleLinkedList<T>& other)
 {
-    copy(other);
+    if (this != &other)
+    {
+        destroy();
+        copy(other);
+    }
 
     return *this;
 }
@@ -141,11 +146,12 @@ inline DoubleLinkedList<T>::~DoubleLinkedList()
 template<class T>
 inline void DoubleLinkedList<T>::destroy()
 {
-    while (first != nullptr)
+    Node<T> current = first;
+    while (current != nullptr)
     {
-        Node<T>* toDelete = first;
-        first = first->next;
-        delete toDelete;
+        Node<T>* next = current->next;
+        delete current;
+        current = next;
     }
     first = nullptr;
     last = nullptr;
@@ -154,28 +160,23 @@ inline void DoubleLinkedList<T>::destroy()
 template<class T>
 inline void DoubleLinkedList<T>::copy(const DoubleLinkedList<T>& other)
 {
-    if (this != &other)
+    if (other.first == nullptr)
     {
-        if (other.first == nullptr)
-        {
-            return;
-        }
+        return;
+    }
 
-        destroy();
-
-        first = new Node<T>(other.first->data);
-        Node<T>* current = first;
-        numberOfElements = 1;
-
-        Node<T>* otherCurrent = other.first->next;
-        while (otherCurrent != nullptr)
-        {
-            current->next = new Node<T>(otherCurrent->data);
-            current->next->prev = current;
-            otherCurrent = otherCurrent->next;
-            current = current->next;
-            ++numberOfElements;
-        }
+    first = new Node<T>(other.first->data);
+    Node<T>* current = first;
+    numberOfElements = 1;
+    
+    Node<T>* otherCurrent = other.first->next;
+    while (otherCurrent != nullptr)
+    {
+        current->next = new Node<T>(otherCurrent->data);
+        current->next->prev = current;
+        otherCurrent = otherCurrent->next;
+        current = current->next;
+        ++numberOfElements;
     }
 }
 

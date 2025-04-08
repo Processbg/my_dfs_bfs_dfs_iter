@@ -16,7 +16,11 @@ inline Stack<T>::Stack(const Stack<T>& other){ copy(other); }
 template<class T>
 inline Stack<T>& Stack<T>::operator=(const Stack<T>& other)
 {
-    copy(other);
+    if (this != &other)
+    {
+        destroy();
+        copy(other);
+    }
     
     return *this;
 }
@@ -48,16 +52,13 @@ inline void Stack<T>::destroy()
 template<class T>
 inline void Stack<T>::copy(const Stack<T>& other)
 {
-    if (this != &other)
-    {
-        capacity = other.capacity;
-        resize(capacity);
-        numberOfElements = other.numberOfElements;
+    capacity = other.capacity;
+    resize(capacity);
+    numberOfElements = other.numberOfElements;
 
-        for (size_t i = 0; i < numberOfElements; ++i)
-        {
-            container[i] = other.container[i];
-        }
+    for (size_t i = 0; i < numberOfElements; ++i)
+    {
+        container[i] = other.container[i];
     }   
 }
 
