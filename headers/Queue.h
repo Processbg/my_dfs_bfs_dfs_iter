@@ -2,8 +2,9 @@
 #define _MY_QUEUE_H_
 
 #include <cstddef>
+#include <iostream>
 
-#include "SingleLinkedList.h"
+#include "DoubleLinkedList.h"
 
 template<class T>
 class Queue
@@ -20,13 +21,14 @@ public:
     size_t numElements() const;
     friend void printQueue(const Queue<T>& queue)
     {
-        printSingleLinkedList(queue.list);
+        std::cout << "Printing queue...\n";
+        printDoubleLinkedList(queue.list);
     }
 
 private:
     void copy (const Queue<T>& other);
 
-    SingleLinkedList<T> list;
+    DoubleLinkedList<T> list;
 };
 
 #include "Queue.hpp"
