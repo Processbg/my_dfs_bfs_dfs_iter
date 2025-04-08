@@ -146,7 +146,7 @@ inline DoubleLinkedList<T>::~DoubleLinkedList()
 template<class T>
 inline void DoubleLinkedList<T>::destroy()
 {
-    Node<T> current = first;
+    Node<T>* current = first;
     while (current != nullptr)
     {
         Node<T>* next = current->next;
