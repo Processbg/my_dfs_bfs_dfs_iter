@@ -3,7 +3,7 @@
 
 #include <cstddef>
 
-#include "SingleLinkedList.h"
+#include "DoubleLinkedList.h"
 #include "Stack.h"
 #include "Queue.h"
 
@@ -18,15 +18,14 @@ public:
 
     void addEdge(const T& u, const T& v);
     void printGrapth() const;
-    bool isConstructedSuccessfully() const;
     size_t numVerticies() const;
 
-    friend void recursive_dfs(const Graph<T>& graph, const T& start, Stack<T>& order)
+    friend void recursive_dfs(Graph<T>& graph, const T& start, Stack<T>& order)
     {
         graph.visited[start] = true;
         order.push_back(start);
 
-        typename SingleLinkedList<T>::Iterator iter = graph.adjacencyList[start].begin();
+        typename DoubleLinkedList<T>::Iterator iter = graph.adjacencyList[start].begin();
         
         while (iter != graph.adjacencyList[start].end())
         {
@@ -38,7 +37,7 @@ public:
         }
     }
 
-    friend void iterative_dfs(const Graph<T>& graph, const T& start, Stack<T>& order)
+    friend void iterative_dfs(Graph<T>& graph, const T& start, Stack<T>& order)
     {
         Stack<T> stack;
         stack.push_back(start);
@@ -52,9 +51,9 @@ public:
                 graph.visited[v] = true;
                 order.push_back(v);
 
-                typename SingleLinkedList<T>::Iterator iter = graph.adjacencyList[v].begin();
+                typename DoubleLinkedList<T>::ReverseIterator iter = graph.adjacencyList[v].rbegin();
                 
-                while (iter != graph.adjacencyList[v].end())
+                while (iter != graph.adjacencyList[v].rend())
                 {
                     if (!graph.visited[*iter])
                     {
@@ -66,7 +65,7 @@ public:
         }
     }
 
-    friend void iterative_bfs(const Graph<T>& graph, const T& start, Stack<T>& order)
+    friend void iterative_bfs(Graph<T>& graph, const T& start, Stack<T>& order)
     {
         Queue<T> queue;
         queue.push_back(start);
@@ -80,7 +79,7 @@ public:
                 graph.visited[v] = true;
                 order.push_back(v);
                 
-                typename SingleLinkedList<T>::Iterator iter = graph.adjacencyList[v].begin();
+                typename DoubleLinkedList<T>::Iterator iter = graph.adjacencyList[v].begin();
                 
                 while (iter != graph.adjacencyList[v].end())
                 {
@@ -96,12 +95,10 @@ public:
 
 private:
     void copy(const Graph<T>& other);
-    void destroy();
 
-    Stack<SingleLinkedList<T>> adjacencyList;
-    bool* visited;
+    Stack<DoubleLinkedList<T>> adjacencyList;
+    Stack<bool> visited;
     const size_t V;
-    bool isValid;
 };
 
 #include "Graph.hpp"

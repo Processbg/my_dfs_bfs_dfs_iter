@@ -9,19 +9,10 @@
 
 template<class T>
 inline Graph<T>::Graph(size_t numverOfVertices): 
-    V(numverOfVertices),
-    visited(nullptr),
-    isValid(true)
+    V(numverOfVertices)
 {
     adjacencyList.resize(V);
-
-    visited = new(std::nothrow) bool[V];
-    if (!visited)
-    {
-        std::cerr << "Can not allocate memory for visited in Graph.\n";
-        isValid = false;
-        return;
-    }
+    visited.resize(V);
 
     for (size_t i = 0; i < V; ++i)
     {
@@ -30,20 +21,7 @@ inline Graph<T>::Graph(size_t numverOfVertices):
 }
 
 template<class T>
-inline bool Graph<T>::isConstructedSuccessfully() const
-{
-    return isValid;
-}
-
-template<class T>
-inline void Graph<T>::destroy()
-{
-    delete[] visited;
-    visited = nullptr;
-}
-
-template<class T>
-inline Graph<T>::~Graph(){ destroy(); }
+inline Graph<T>::~Graph(){}
 
 template<class T>
 inline Graph<T>::Graph(const Graph<T>& other){ copy(other); }
@@ -61,7 +39,9 @@ inline void Graph<T>::copy(const Graph<T>& other)
 {
     if (this != &other)
     {
+        V = other.V;
         adjacencyList = other.adjacencyList;
+        visited = other.visited;
     } 
 }
 
@@ -78,7 +58,7 @@ inline void Graph<T>::printGrapth() const
     for (size_t i = 0; i < V; ++i)
     {
         std::cout << "Edge between vertex " << i << " and ";
-        typename SingleLinkedList<T>::Iterator iter = adjacencyList[i].begin();
+        typename DoubleLinkedList<T>::Iterator iter = adjacencyList[i].begin();
         std::cout << *iter;
         ++iter;
         while (iter != adjacencyList[i].end())

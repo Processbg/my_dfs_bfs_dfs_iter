@@ -1,7 +1,7 @@
 #include <iostream>
 
 #include "../headers/Stack.h"
-#include "../headers/SingleLinkedList.h"
+#include "../headers/DoubleLinkedList.h"
 #include "../headers/Graph.h"
 #include "../headers/Queue.h"
 
@@ -38,18 +38,26 @@ int main()
 
     printStack(stack);
 
-    SingleLinkedList<int> list;
+    DoubleLinkedList<int> list;
     list.push_back(456);
     list.push_back(23);
     list.push_back(4);
     list.push_back(34567);
     list.push_back(11);
 
-    printSingleLinkedList(list);
+    printDoubleLinkedList(list);
 
     std::cout << "Pop first value form list: " << list.pop_front() << std::endl;
+    std::cout << "Pop last value form list: " << list.pop_back() << std::endl;
 
-    printSingleLinkedList(list);
+    printDoubleLinkedList(list);
+
+    list.push_front(10);
+    list.push_front(0);
+
+    printDoubleLinkedList(list);
+
+    printReverseDoubleLinkedList(list);
 
     Queue<int> queue;
 
@@ -66,11 +74,6 @@ int main()
     printQueue(queue);
 
     Graph<int> undirectedGraph1(10);
-    if (!undirectedGraph1.isConstructedSuccessfully())
-    {
-        std::cerr << "UndirectedGrap object was not constructed properly.\n";
-        return -1;
-    }
 
     undirectedGraph1.addEdge(0,1);
     undirectedGraph1.addEdge(0,2);
@@ -87,15 +90,10 @@ int main()
     undirectedGraph1.printGrapth();
 
     Stack<int> v1;
-    recursive_dfs(undirectedGraph1, 3, v1);
+    recursive_dfs(undirectedGraph1, 0, v1);
     print(v1);
 
     Graph<int> undirectedGraph2(10);
-    if (!undirectedGraph2.isConstructedSuccessfully())
-    {
-        std::cerr << "UndirectedGrap object was not constructed properly.\n";
-        return -1;
-    }
 
     undirectedGraph2.addEdge(0,1);
     undirectedGraph2.addEdge(0,2);
@@ -114,11 +112,6 @@ int main()
     print(v2);
 
     Graph<int> undirectedGraph3(10);
-    if (!undirectedGraph3.isConstructedSuccessfully())
-    {
-        std::cerr << "UndirectedGrap object was not constructed properly.\n";
-        return -1;
-    }
 
     undirectedGraph3.addEdge(0,1);
     undirectedGraph3.addEdge(0,2);
