@@ -17,8 +17,12 @@ public:
     ~Graph();
 
     void addEdge(const T& u, const T& v);
+
     void printGrapth() const;
     size_t numVerticies() const;
+    T* getParents() const;
+    int* getDistances() const;
+    bool isConstructedSuccessfully() const;
 
     friend void recursive_dfs(Graph<T>& graph, const T& start, Stack<T>& order)
     {
@@ -31,6 +35,8 @@ public:
         {
             if (!graph.visited[*iter])
             {
+                graph.parents[*iter] = start;
+                graph.distances[*iter] = graph.distances[start] + 1;
                 recursive_dfs(graph, *iter, order);
             }
             ++iter;
@@ -58,6 +64,8 @@ public:
                     if (!graph.visited[*iter])
                     {
                         stack.push_back(*iter);
+                        graph.parents[*iter] = v;
+                        graph.distances[*iter] = graph.distances[v] + 1;
                     }
                     ++iter;
                 }
@@ -86,6 +94,8 @@ public:
                     if (!graph.visited[*iter])
                     {
                         queue.push_back(*iter);
+                        graph.parents[*iter] = v;
+                        graph.distances[*iter] = graph.distances[v] + 1;
                     }
                     ++iter;
                 }
@@ -95,10 +105,14 @@ public:
 
 private:
     void copy(const Graph<T>& other);
+    void destroy();
 
     Stack<DoubleLinkedList<T>> adjacencyList;
-    Stack<bool> visited;
+    bool* visited;
+    T* parents;
+    int* distances;
     const size_t V;
+    bool isValid;
 };
 
 #include "Graph.hpp"
