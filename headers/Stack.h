@@ -19,6 +19,7 @@ public:
     T pop();
     bool isEmpty() const;
     size_t numElements() const;
+    size_t getCapacity() const;
     void resize(size_t newSize);
 
 private:

@@ -7,11 +7,11 @@
 #include "../headers/Stack.h"
 
 template<class T>
-inline Stack<T>::Stack(): numberOfElements(0), capacity(1), container(nullptr)
+inline Stack<T>::Stack(): numberOfElements(0), capacity(0), container(nullptr)
 {}
 
 template<class T>
-inline Stack<T>::Stack(const Stack<T>& other){ copy(other); }
+inline Stack<T>::Stack(const Stack<T>& other): numberOfElements(0) { copy(other); }
 
 template<class T>
 inline Stack<T>& Stack<T>::operator=(const Stack<T>& other)
@@ -44,6 +44,12 @@ inline size_t Stack<T>::numElements() const
 }
 
 template<class T>
+inline size_t Stack<T>::getCapacity() const
+{
+    return capacity;
+}
+
+template<class T>
 inline void Stack<T>::destroy()
 {
     delete[] container;
@@ -65,8 +71,8 @@ inline void Stack<T>::copy(const Stack<T>& other)
 template<class T>
 inline void Stack<T>::resize(size_t newSize)
 {
-    T* tmpContainer = new(std::nothrow) T[newSize];
-    if (!tmpContainer)
+    T* newContainer = new(std::nothrow) T[newSize];
+    if (!newContainer)
     {
         std::cerr << "Can not allocate memory for tmpContainer in Stack::resize.\n";
         return;
@@ -74,35 +80,25 @@ inline void Stack<T>::resize(size_t newSize)
 
     for (size_t i = 0 ; i < numberOfElements; ++i)
     {
-        tmpContainer[i] = container[i];
+        newContainer[i] = container[i];
     }
 
-    container = tmpContainer;
-    tmpContainer = nullptr;
+    destroy();
+    container = newContainer;
+    newContainer = nullptr;
     capacity = newSize;
 }
 
 template<class T>
 inline void Stack<T>::push_back(const T& value)
 {
-    if (container == nullptr && numberOfElements == 0 && capacity == 1)
+    if (numberOfElements >= capacity)
     {
-        resize(capacity);
-        container[numberOfElements] = value;
-        ++numberOfElements;
+        resize(capacity == 0 ? 1 : capacity * 2);
     }
-    else if (numberOfElements == capacity)
-    {
-        capacity = capacity * 2;
-        resize(capacity);
-        container[numberOfElements] = value;
-        ++numberOfElements;
-    }
-    else if (numberOfElements < capacity)
-    {
-        container[numberOfElements] = value;
-        ++numberOfElements;
-    }
+
+    container[numberOfElements] = value;
+    ++numberOfElements;
 }
 
 template<class T>

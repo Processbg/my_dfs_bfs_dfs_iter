@@ -6,10 +6,28 @@
 #include "../headers/Queue.h"
 
 template<class T>
+void printArray(const T* container, size_t size, const char* name)
+{
+    std::cout << "\n";
+    for (size_t  i = 0 ; i < size; ++i)
+    {
+        if (i == 0)
+        {
+            std::cout << i << " has " << name << " " << container[i];
+        }
+        else
+        {
+            std::cout << ", " << i << " has " << name << " " << container[i];
+        }
+    }
+    std::cout << "\n";
+}
+
+template<class T>
 void print(const Stack<T>& container)
 {
     size_t numberOfElements = container.numElements();
-    for(size_t  i = 0 ; i < numberOfElements; ++i)
+    for (size_t  i = 0 ; i < numberOfElements; ++i)
     {
         if (i == 0)
         {
@@ -74,6 +92,11 @@ int main()
     printQueue(queue);
 
     Graph<int> undirectedGraph1(10);
+    if (!undirectedGraph1.isConstructedSuccessfully())
+    {
+        std::cerr << "Could not construct undirectedGraph1.\n";
+        return -1;
+    }
 
     undirectedGraph1.addEdge(0,1);
     undirectedGraph1.addEdge(0,2);
@@ -89,11 +112,21 @@ int main()
 
     undirectedGraph1.printGrapth();
 
-    Stack<int> v1;
-    recursive_dfs(undirectedGraph1, 0, v1);
-    print(v1);
+    Stack<int> preOrder1;
+    recursive_dfs(undirectedGraph1, 0, preOrder1);
+    std::cout << "DFS recursive preorder is:\n";
+    print(preOrder1);
+    std::cout << "Parents are:\n";
+    printArray(undirectedGraph1.getParents(), undirectedGraph1.numVerticies(), "parent");
+    std::cout << "Distances are:\n";
+    printArray(undirectedGraph1.getDistances(), undirectedGraph1.numVerticies(), "distance");
 
     Graph<int> undirectedGraph2(10);
+    if (!undirectedGraph2.isConstructedSuccessfully())
+    {
+        std::cerr << "Could not construct undirectedGraph2.\n";
+        return -1;
+    }
 
     undirectedGraph2.addEdge(0,1);
     undirectedGraph2.addEdge(0,2);
@@ -107,11 +140,21 @@ int main()
     undirectedGraph2.addEdge(7,8);
     undirectedGraph2.addEdge(8,9);
 
-    Stack<int> v2;
-    iterative_dfs(undirectedGraph2, 0, v2);
-    print(v2);
+    Stack<int> preOrder2;
+    iterative_dfs(undirectedGraph2, 0, preOrder2);
+    std::cout << "DFS iterative preorder is:\n";
+    print(preOrder2);
+    std::cout << "Parents are:\n";
+    printArray(undirectedGraph2.getParents(), undirectedGraph2.numVerticies(), "parent");
+    std::cout << "Distances are:\n";
+    printArray(undirectedGraph2.getDistances(), undirectedGraph2.numVerticies(), "distance");
 
     Graph<int> undirectedGraph3(10);
+    if (!undirectedGraph3.isConstructedSuccessfully())
+    {
+        std::cerr << "Could not construct undirectedGraph3.\n";
+        return -1;
+    }
 
     undirectedGraph3.addEdge(0,1);
     undirectedGraph3.addEdge(0,2);
@@ -125,9 +168,14 @@ int main()
     undirectedGraph3.addEdge(7,8);
     undirectedGraph3.addEdge(8,9);
 
-    Stack<int> v3;
-    iterative_bfs(undirectedGraph3, 1, v3);
-    print(v3);
+    Stack<int> preOrder3;
+    iterative_bfs(undirectedGraph3, 1, preOrder3);
+    std::cout << "BFS preorder is:\n";
+    print(preOrder3);
+    std::cout << "Parents are:\n";
+    printArray(undirectedGraph3.getParents(), undirectedGraph3.numVerticies(), "parent");
+    std::cout << "Distances are:\n";
+    printArray(undirectedGraph3.getDistances(), undirectedGraph3.numVerticies(), "distance");
 
     return 0;
 }
