@@ -11,9 +11,7 @@ template<class T>
 class Graph
 {
 public:
-    Graph(size_t numberOfVerticies);
-    Graph(const Graph<T>& other);
-    Graph<T>& operator=(const Graph<T>& other); 
+    explicit Graph(size_t numberOfVerticies);
     ~Graph();
 
     void addEdge(const T& u, const T& v);
@@ -104,8 +102,9 @@ public:
     }
 
 private:
-    void copy(const Graph<T>& other);
     void destroy();
+    Graph(const Graph<T>& other);
+    Graph<T>& operator=(const Graph<T>& other); 
 
     Stack<DoubleLinkedList<T>> adjacencyList;
     bool* visited;
