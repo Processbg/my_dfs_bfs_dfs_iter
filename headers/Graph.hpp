@@ -35,6 +35,8 @@ inline Graph<T>::Graph(size_t numverOfVertices):
     {
         std::cerr << "Can not allocate memory for distances in default constructor of Graph.\n";
         isValid = false;
+        delete[] visited;
+        visited = nullptr;
         return;
     }
 
@@ -48,6 +50,10 @@ inline Graph<T>::Graph(size_t numverOfVertices):
     {
         std::cerr << "Can not allocate memory for parent in default constructor of Graph.\n";
         isValid = false;
+        delete[] visited;
+        visited = nullptr;
+        delete[] distances;
+        distances = nullptr;
         return;
     }
 }
