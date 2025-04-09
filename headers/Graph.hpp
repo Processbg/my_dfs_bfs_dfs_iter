@@ -81,28 +81,6 @@ template<class T>
 inline Graph<T>::~Graph(){ destroy(); }
 
 template<class T>
-inline Graph<T>::Graph(const Graph<T>& other){ copy(other); }
-
-template<class T>
-inline Graph<T>& Graph<T>::operator=(const Graph<T>& other)
-{
-    if (this != &other)
-    {
-        copy(other);
-    }
-
-    return *this;
-}
-
-template<class T>
-inline void Graph<T>::copy(const Graph<T>& other)
-{
-    V = other.V;
-    adjacencyList = other.adjacencyList;
-    visited = other.visited; 
-}
-
-template<class T>
 inline void Graph<T>::addEdge(const T& u, const T& v)
 {
     adjacencyList[u].push_back(v);
