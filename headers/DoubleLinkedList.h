@@ -4,23 +4,29 @@
 #include <cstddef>
 
 template<class T>
-struct Node
-{
-    T data;
-    Node<T>* next;
-    Node<T>* prev;
-    Node(const T& oData): data(oData), next(nullptr), prev(nullptr) {}
-};
-
-template<class T>
 class DoubleLinkedList
 {
+private:
+    struct Node
+    {
+        T data;
+        Node* next;
+        Node* prev;
+        Node(const T& oData): data(oData), next(nullptr), prev(nullptr) {}
+    };
+
+    void copy(const DoubleLinkedList<T>& other);
+    void destroy();
+
+    Node* first;
+    Node* last;
+    size_t numberOfElements;
 public:
     class Iterator
     {
     public:
         Iterator();
-        Iterator(Node<T>* node);
+        Iterator(Node* node);
 
         Iterator& operator++();
         Iterator operator++(int);
@@ -29,8 +35,8 @@ public:
         bool operator==(const Iterator& other);
 
     private: 
-        Node<T>* current;
-        Node<T>* previous;
+        Node* current;
+        Node* previous;
     };
 
     Iterator begin() const;
@@ -40,7 +46,7 @@ public:
     {
     public:
         ReverseIterator();
-        ReverseIterator(Node<T>* node);
+        ReverseIterator(Node* node);
 
         ReverseIterator& operator++();
         ReverseIterator operator++(int);
@@ -48,8 +54,8 @@ public:
         bool operator!=(const ReverseIterator& other);
         bool operator==(const ReverseIterator& other);
     private:
-        Node<T>* current;
-        Node<T>* next;
+        Node* current;
+        Node* next;
     };
 
     ReverseIterator rbegin() const;
@@ -66,14 +72,6 @@ public:
     void push_front(const T& value);
     bool isEmpty() const;
     size_t numElements() const;
-
-private:
-    void copy(const DoubleLinkedList<T>& other);
-    void destroy();
-
-    Node<T>* first;
-    Node<T>* last;
-    size_t numberOfElements;
 };
 
 #include "DoubleLinkedList.hpp"
