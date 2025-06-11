@@ -1,20 +1,20 @@
-#ifndef _MY_STACK_HPP_
-#define _MY_STACK_HPP_
+#ifndef _MY_VECTOR_HPP_
+#define _MY_VECTOR_HPP_
 
 #include <stdexcept>
 #include <iostream>
 
-#include "../headers/Stack.h"
+#include "../headers/Vector.h"
 
 template<class T>
-inline Stack<T>::Stack(): numberOfElements(0), capacity(0), container(nullptr)
+inline Vector<T>::Vector(): numberOfElements(0), capacity(0), container(nullptr)
 {}
 
 template<class T>
-inline Stack<T>::Stack(const Stack<T>& other): numberOfElements(0) { copy(other); }
+inline Vector<T>::Vector(const Vector<T>& other): numberOfElements(0) { copy(other); }
 
 template<class T>
-inline Stack<T>& Stack<T>::operator=(const Stack<T>& other)
+inline Vector<T>& Vector<T>::operator=(const Vector<T>& other)
 {
     if (this != &other)
     {
@@ -26,37 +26,37 @@ inline Stack<T>& Stack<T>::operator=(const Stack<T>& other)
 }
 
 template<class T>
-inline Stack<T>::~Stack()
+inline Vector<T>::~Vector()
 {
     destroy();
 }
 
 template<class T>
-inline bool Stack<T>::isEmpty() const
+inline bool Vector<T>::isEmpty() const
 {
     return numberOfElements == 0;
 }
 
 template<class T>
-inline size_t Stack<T>::numElements() const
+inline size_t Vector<T>::numElements() const
 {
     return numberOfElements;
 }
 
 template<class T>
-inline size_t Stack<T>::getCapacity() const
+inline size_t Vector<T>::getCapacity() const
 {
     return capacity;
 }
 
 template<class T>
-inline void Stack<T>::destroy()
+inline void Vector<T>::destroy()
 {
     delete[] container;
 }
 
 template<class T>
-inline void Stack<T>::copy(const Stack<T>& other)
+inline void Vector<T>::copy(const Vector<T>& other)
 {
     capacity = other.capacity;
     resize(capacity);
@@ -69,7 +69,7 @@ inline void Stack<T>::copy(const Stack<T>& other)
 }
 
 template<class T>
-inline void Stack<T>::resize(size_t newSize)
+inline void Vector<T>::resize(size_t newSize)
 {
     T* newContainer = new(std::nothrow) T[newSize];
     if (!newContainer)
@@ -90,7 +90,7 @@ inline void Stack<T>::resize(size_t newSize)
 }
 
 template<class T>
-inline void Stack<T>::push_back(const T& value)
+inline void Vector<T>::push_back(const T& value)
 {
     if (numberOfElements >= capacity)
     {
@@ -102,7 +102,7 @@ inline void Stack<T>::push_back(const T& value)
 }
 
 template<class T>
-inline T Stack<T>::pop()
+inline T Vector<T>::pop()
 {
     T lastValue = container[numberOfElements - 1];
     --numberOfElements;
@@ -110,15 +110,15 @@ inline T Stack<T>::pop()
 }
 
 template<class T>
-inline T& Stack<T>::operator[](size_t index)
+inline T& Vector<T>::operator[](size_t index)
 {
     return container[index];
 }
 
 template<class T>
-inline const T& Stack<T>::operator[](size_t index) const
+inline const T& Vector<T>::operator[](size_t index) const
 {
     return container[index];
 }
 
-#endif //!_MY_STACK_HPP_
+#endif //!_MY_VECTOR_HPP_

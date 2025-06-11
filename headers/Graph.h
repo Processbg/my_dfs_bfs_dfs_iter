@@ -4,7 +4,7 @@
 #include <cstddef>
 
 #include "DoubleLinkedList.h"
-#include "Stack.h"
+#include "Vector.h"
 #include "Queue.h"
 
 template<class T>
@@ -22,7 +22,7 @@ public:
     int* getDistances() const;
     bool isConstructedSuccessfully() const;
 
-    friend void recursive_dfs(Graph<T>& graph, const T& start, Stack<T>& order)
+    friend void recursive_dfs(Graph<T>& graph, const T& start, Vector<T>& order)
     {
         graph.visited[start] = true;
         order.push_back(start);
@@ -41,9 +41,9 @@ public:
         }
     }
 
-    friend void iterative_dfs(Graph<T>& graph, const T& start, Stack<T>& order)
+    friend void iterative_dfs(Graph<T>& graph, const T& start, Vector<T>& order)
     {
-        Stack<T> stack;
+        Vector<T> stack;
         stack.push_back(start);
 
         while (!stack.isEmpty())
@@ -71,7 +71,7 @@ public:
         }
     }
 
-    friend void iterative_bfs(Graph<T>& graph, const T& start, Stack<T>& order)
+    friend void iterative_bfs(Graph<T>& graph, const T& start, Vector<T>& order)
     {
         Queue<T> queue;
         queue.push_back(start);
@@ -106,7 +106,7 @@ private:
     Graph(const Graph<T>& other);
     Graph<T>& operator=(const Graph<T>& other); 
 
-    Stack<DoubleLinkedList<T>> adjacencyList;
+    Vector<DoubleLinkedList<T>> adjacencyList;
     bool* visited;
     T* parents;
     int* distances;
