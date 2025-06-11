@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "../headers/Stack.h"
+#include "../headers/Vector.h"
 #include "../headers/DoubleLinkedList.h"
 #include "../headers/Graph.h"
 #include "../headers/Queue.h"
@@ -24,7 +24,7 @@ void printArray(const T* container, size_t size, const char* name)
 }
 
 template<class T>
-void print(const Stack<T>& container)
+void print(const Vector<T>& container)
 {
     size_t numberOfElements = container.numElements();
     for (size_t  i = 0 ; i < numberOfElements; ++i)
@@ -43,18 +43,18 @@ void print(const Stack<T>& container)
 
 int main()
 {
-    Stack<int> stack;
-    stack.push_back(12);
-    stack.push_back(13567);
-    stack.push_back(2);
-    stack.push_back(56);
-    stack.push_back(1234);
+    Vector<int> vector;
+    vector.push_back(12);
+    vector.push_back(13567);
+    vector.push_back(2);
+    vector.push_back(56);
+    vector.push_back(1234);
 
-    printStack(stack);
+    printVector(vector);
 
-    std::cout << "Pop last value form stack: " << stack.pop() << std::endl;
+    std::cout << "Pop last value form vector: " << vector.pop() << std::endl;
 
-    printStack(stack);
+    printVector(vector);
 
     DoubleLinkedList<int> list;
     list.push_back(456);
@@ -112,7 +112,7 @@ int main()
 
     undirectedGraph1.printGrapth();
 
-    Stack<int> preOrder1;
+    Vector<int> preOrder1;
     recursive_dfs(undirectedGraph1, 0, preOrder1);
     std::cout << "DFS recursive preorder is:\n";
     print(preOrder1);
@@ -140,7 +140,7 @@ int main()
     undirectedGraph2.addEdge(7,8);
     undirectedGraph2.addEdge(8,9);
 
-    Stack<int> preOrder2;
+    Vector<int> preOrder2;
     iterative_dfs(undirectedGraph2, 0, preOrder2);
     std::cout << "DFS iterative preorder is:\n";
     print(preOrder2);
@@ -168,7 +168,7 @@ int main()
     undirectedGraph3.addEdge(7,8);
     undirectedGraph3.addEdge(8,9);
 
-    Stack<int> preOrder3;
+    Vector<int> preOrder3;
     iterative_bfs(undirectedGraph3, 1, preOrder3);
     std::cout << "BFS preorder is:\n";
     print(preOrder3);

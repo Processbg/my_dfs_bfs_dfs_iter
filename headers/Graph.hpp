@@ -5,7 +5,7 @@
 #include <iostream>
 
 #include "../headers/Graph.h"
-#include "../headers/Stack.h"
+#include "../headers/Vector.h"
 
 template<class T>
 inline Graph<T>::Graph(size_t numverOfVertices): 
