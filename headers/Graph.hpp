@@ -93,7 +93,7 @@ inline void Graph<T>::printGrapth() const
     for (size_t i = 0; i < V; ++i)
     {
         std::cout << "Edge between vertex " << i << " and ";
-        typename DoubleLinkedList<T>::Iterator iter = adjacencyList[i].begin();
+        typename DoubleLinkedList<T>::const_Iterator iter = adjacencyList[i].begin();
         std::cout << *iter;
         ++iter;
         while (iter != adjacencyList[i].end())

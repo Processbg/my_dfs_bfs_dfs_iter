@@ -7,13 +7,7 @@ template<class T>
 class DoubleLinkedList
 {
 private:
-    struct Node
-    {
-        T data;
-        Node* next;
-        Node* prev;
-        Node(const T& oData): data(oData), next(nullptr), prev(nullptr) {}
-    };
+    struct Node;
 
     void copy(const DoubleLinkedList<T>& other);
     void destroy();
@@ -22,46 +16,25 @@ private:
     Node* last;
     size_t numberOfElements;
 public:
-    class Iterator
-    {
-    public:
-        Iterator();
-        Iterator(Node* node);
+    class Iterator;
+    class const_Iterator;
 
-        Iterator& operator++();
-        Iterator operator++(int);
-        const T& operator*() const;
-        T& operator*();
-        bool operator!=(const Iterator& other);
-        bool operator==(const Iterator& other);
+    Iterator begin();
+    Iterator end();
+    const_Iterator begin() const;
+    const_Iterator end() const ;
+    const_Iterator cbegin() const;
+    const_Iterator cend() const;
 
-    private: 
-        Node* current;
-        Node* previous;
-    };
+    class ReverseIterator;
+    class const_ReverseIterator;
 
-    Iterator begin() const;
-    Iterator end() const;
-
-    class ReverseIterator
-    {
-    public:
-        ReverseIterator();
-        ReverseIterator(Node* node);
-
-        ReverseIterator& operator++();
-        ReverseIterator operator++(int);
-        const T& operator*() const;
-        T& operator*();
-        bool operator!=(const ReverseIterator& other);
-        bool operator==(const ReverseIterator& other);
-    private:
-        Node* current;
-        Node* next;
-    };
-
-    ReverseIterator rbegin() const;
-    ReverseIterator rend() const;
+    ReverseIterator rbegin();
+    ReverseIterator rend();
+    const_ReverseIterator rbegin() const;
+    const_ReverseIterator rend() const;
+    const_ReverseIterator crbegin() const;
+    const_ReverseIterator crend() const;
 
     DoubleLinkedList();
     DoubleLinkedList(const DoubleLinkedList<T>& other);
@@ -80,6 +53,14 @@ public:
     size_t numElements() const;
 };
 
+#include "Node.h"
+
+#include "Iterator.h"
+#include "constIterator.h"
+
+#include "reverseIterator.h"
+#include "constReverseIterator.h"
+
 #include "DoubleLinkedList.hpp"
 
 template<class T>
@@ -87,10 +68,10 @@ void printDoubleLinkedList(const DoubleLinkedList<T>& list)
 {
     std::cout << "Contents of list is [";
 
-    typename DoubleLinkedList<T>::Iterator iterList = list.begin();
+    typename DoubleLinkedList<T>::const_Iterator iterList = list.cbegin();
     std::cout << *iterList;
     ++iterList;
-    while (iterList != list.end())
+    while (iterList != list.cend())
     {
         std::cout << ", " << *iterList;
         ++iterList;
@@ -103,10 +84,10 @@ void printReverseDoubleLinkedList(const DoubleLinkedList<T>& list)
 {
     std::cout << "Contents of reversed list is [";
 
-    typename DoubleLinkedList<T>::ReverseIterator iterList = list.rbegin();
+    typename DoubleLinkedList<T>::const_ReverseIterator iterList = list.crbegin();
     std::cout << *iterList;
     ++iterList;
-    while (iterList != list.rend())
+    while (iterList != list.crend())
     {
         std::cout << ", " << *iterList;
         ++iterList;
