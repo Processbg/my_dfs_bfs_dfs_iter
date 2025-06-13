@@ -74,11 +74,12 @@ public:
     friend void iterative_bfs(Graph<T>& graph, const T& start, Vector<T>& order)
     {
         Queue<T> queue;
-        queue.push_back(start);
+        queue.enqueue(start);
 
         while (!queue.isEmpty())
         {
-            T v = queue.pop();
+            T v = queue.front();
+            queue.dequeue();
             
             if (!graph.visited[v])
             {
@@ -91,7 +92,7 @@ public:
                 {
                     if (!graph.visited[*iter])
                     {
-                        queue.push_back(*iter);
+                        queue.enqueue(*iter);
                         graph.parents[*iter] = v;
                         graph.distances[*iter] = graph.distances[v] + 1;
                     }

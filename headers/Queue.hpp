@@ -32,15 +32,15 @@ inline void Queue<T>::copy(const Queue<T>& other)
 }
 
 template<class T>
-inline void Queue<T>::push_back(const T& value)
+inline void Queue<T>::enqueue(const T& value)
 {
     list.push_back(value);
 }
 
 template<class T>
-inline T Queue<T>::pop()
+inline void Queue<T>::dequeue()
 {
-    return list.pop_front();
+    list.pop_front();
 }
 
 template<class T>
@@ -54,5 +54,17 @@ inline size_t Queue<T>::numElements() const
 {
     return list.numElements();
 }
+
+template<class T>
+inline T&  Queue<T>::front() { return list.front(); }
+
+template<class T>
+inline const T&  Queue<T>::front() const { return list.front(); }
+
+template<class T>
+inline T&  Queue<T>::back() { return list.back(); }
+
+template<class T>
+inline const T&  Queue<T>::back() const { return list.back(); }
 
 #endif //!_MY_QUEUE_HPP_

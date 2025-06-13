@@ -30,7 +30,8 @@ public:
 
         Iterator& operator++();
         Iterator operator++(int);
-        T operator*();
+        const T& operator*() const;
+        T& operator*();
         bool operator!=(const Iterator& other);
         bool operator==(const Iterator& other);
 
@@ -50,7 +51,8 @@ public:
 
         ReverseIterator& operator++();
         ReverseIterator operator++(int);
-        T operator*();
+        const T& operator*() const;
+        T& operator*();
         bool operator!=(const ReverseIterator& other);
         bool operator==(const ReverseIterator& other);
     private:
@@ -66,8 +68,12 @@ public:
     DoubleLinkedList<T>& operator=(const DoubleLinkedList<T>& other);
     ~DoubleLinkedList();
 
-    T pop_front();
-    T pop_back();
+    T& front();
+    const T& front() const;
+    void pop_front();
+    T& back();
+    const T& back() const;
+    void pop_back();
     void push_back(const T& value);
     void push_front(const T& value);
     bool isEmpty() const;
