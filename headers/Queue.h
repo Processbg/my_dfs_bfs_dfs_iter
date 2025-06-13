@@ -15,8 +15,12 @@ public:
     Queue<T>& operator=(const Queue<T>& other);
     ~Queue();
 
-    void push_back(const T& value);
-    T pop();
+    T& front();
+    const T& front() const;
+    T& back();
+    const T& back() const;
+    void enqueue(const T& value);
+    void dequeue();
     bool isEmpty() const;
     size_t numElements() const;
     friend void printQueue(const Queue<T>& queue)

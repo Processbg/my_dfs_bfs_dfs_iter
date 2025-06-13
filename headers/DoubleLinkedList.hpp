@@ -32,7 +32,13 @@ inline typename DoubleLinkedList<T>::Iterator DoubleLinkedList<T>::Iterator::ope
 }
 
 template<class T>
-inline T DoubleLinkedList<T>::Iterator::operator*()
+inline T& DoubleLinkedList<T>::Iterator::operator*()
+{
+    return current->data;
+}
+
+template<class T>
+inline const T& DoubleLinkedList<T>::Iterator::operator*() const
 {
     return current->data;
 }
@@ -88,7 +94,13 @@ inline typename DoubleLinkedList<T>::ReverseIterator DoubleLinkedList<T>::Revers
 }
 
 template<class T>
-inline T DoubleLinkedList<T>::ReverseIterator::operator*()
+inline T& DoubleLinkedList<T>::ReverseIterator::operator*()
+{
+    return current->data;
+}
+
+template<class T>
+inline const T& DoubleLinkedList<T>::ReverseIterator::operator*() const
 {
     return current->data;
 }
@@ -181,93 +193,83 @@ inline void DoubleLinkedList<T>::copy(const DoubleLinkedList<T>& other)
 }
 
 template<class T>
-inline T DoubleLinkedList<T>::pop_back()
+inline void DoubleLinkedList<T>::pop_back()
 {
+    if (!last) return;
+
     Node* toRemove = last;
-    T data = toRemove->data;
     // make sure that the node before the last has next null
-    if (last->prev != nullptr)
+    if (last->prev)
     {
         last->prev->next = nullptr;
     }
     last = last->prev;
+    if (!last) first = nullptr;
     delete toRemove;
     --numberOfElements;
-    return data;
 }
 
 template<class T>
-inline T DoubleLinkedList<T>::pop_front()
+inline T& DoubleLinkedList<T>::front() { return first->data; }
+
+template<class T>
+inline const T& DoubleLinkedList<T>::front() const { return first->data; }
+
+template<class T>
+inline void DoubleLinkedList<T>::pop_front()
 {
+    if (!first) return;
+
     Node* toRemove = first;
-    T data = toRemove->data;
     // make sure that the node after the first has previous null
-    if (first->next != nullptr)
+    if (first->next)
     {
         first->next->prev = nullptr;
     }
     first = first->next;
+    if (!first) last = nullptr;
     delete toRemove;
     --numberOfElements;
-    return data;
 }
+
+template<class T>
+inline T& DoubleLinkedList<T>::back() { return last->data; }
+
+template<class T>
+inline const T& DoubleLinkedList<T>::back() const { return last->data; }
 
 template<class T>
 inline void DoubleLinkedList<T>::push_back(const T& value)
 {
-    if (!first)
+    Node* newNode = new Node(value);
+    if (last)
     {
-        first = new Node(value);
-        last = first;
-        ++numberOfElements;
-    }
-    else if (last == first)
-    {
-        Node* second = new Node(value);
-        first->next = second;
-        second->prev = first;
-        last = second;
-        second = nullptr;
-        ++numberOfElements;
+        newNode->prev = last;
+        last->next = newNode;
     }
     else
     {
-        Node* newLast = new Node(value);
-        last->next = newLast;
-        newLast->prev = last;
-        last = newLast;
-        newLast = nullptr;
-        ++numberOfElements;
+        first = newNode;
     }
+    last = newNode;
+    ++numberOfElements;
 }
 
 template<class T>
 inline void DoubleLinkedList<T>::push_front(const T& value)
 {
-    if (!first)
+   Node* newNode = new Node(value);
+    if (first)
     {
-        first = new Node(value);
-        last = first;
-        ++numberOfElements;
-    }
-    else if (last == first)
-    {
-        Node* second = new Node(value);
-        first->next = second;
-        second->prev = first;
-        last = second;
-        second = nullptr;
-        ++numberOfElements;
+        newNode->next = first;
+        first->prev = newNode;
     }
     else
     {
-        Node* newFirst = new Node(value);
-        newFirst->next = first;
-        first->prev = newFirst;
-        first = newFirst;
-        newFirst = nullptr;
-        ++numberOfElements;
+        last = newNode;
     }
+    first = newNode;
+    ++numberOfElements;
 }
 
 template<class T>
