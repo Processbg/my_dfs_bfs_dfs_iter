@@ -27,7 +27,7 @@ public:
         graph.visited[start] = true;
         order.push_back(start);
 
-        typename DoubleLinkedList<T>::Iterator iter = graph.adjacencyList[start].begin();
+        typename DoubleLinkedList<T>::const_Iterator iter = graph.adjacencyList[start].begin();
         
         while (iter != graph.adjacencyList[start].end())
         {
@@ -55,7 +55,7 @@ public:
                 graph.visited[v] = true;
                 order.push_back(v);
 
-                typename DoubleLinkedList<T>::ReverseIterator iter = graph.adjacencyList[v].rbegin();
+                typename DoubleLinkedList<T>::const_ReverseIterator iter = graph.adjacencyList[v].rbegin();
                 
                 while (iter != graph.adjacencyList[v].rend())
                 {
@@ -86,7 +86,7 @@ public:
                 graph.visited[v] = true;
                 order.push_back(v);
                 
-                typename DoubleLinkedList<T>::Iterator iter = graph.adjacencyList[v].begin();
+                typename DoubleLinkedList<T>::const_Iterator iter = graph.adjacencyList[v].begin();
                 
                 while (iter != graph.adjacencyList[v].end())
                 {

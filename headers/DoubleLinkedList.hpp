@@ -1,132 +1,78 @@
 #ifndef _MY_DOUBLE_LINKED_LIST_HPP_
 #define _MY_DOUBLE_LINKED_LIST_HPP_
 
-#include "../headers/DoubleLinkedList.h"
+#include "DoubleLinkedList.h"
 
 template<class T>
-inline DoubleLinkedList<T>::Iterator::Iterator(): current(nullptr), previous(nullptr) 
-{}
-
-template<class T>
-inline DoubleLinkedList<T>::Iterator::Iterator(DoubleLinkedList<T>::Node* node): current(node), previous(nullptr)
-{}
-
-template<class T>
-inline typename DoubleLinkedList<T>::Iterator& DoubleLinkedList<T>::Iterator::operator++()
-{
-    if (current != nullptr)
-    {
-        previous = current;
-        current = current->next;
-    }
-
-    return *this;
-}
-
-template<class T>
-inline typename DoubleLinkedList<T>::Iterator DoubleLinkedList<T>::Iterator::operator++(int)
-{
-    typename DoubleLinkedList<T>::Iterator tmp = *this;
-    ++*this;
-    return tmp;
-}
-
-template<class T>
-inline T& DoubleLinkedList<T>::Iterator::operator*()
-{
-    return current->data;
-}
-
-template<class T>
-inline const T& DoubleLinkedList<T>::Iterator::operator*() const
-{
-    return current->data;
-}
-
-template<class T>
-inline bool DoubleLinkedList<T>::Iterator::operator!=(const DoubleLinkedList<T>::Iterator& other)
-{
-    return current != other.current;
-}
-
-template<class T>
-inline bool DoubleLinkedList<T>::Iterator::operator==(const DoubleLinkedList<T>::Iterator& other)
-{
-    return !(*this != other);
-}
-
-template<class T>
-inline typename DoubleLinkedList<T>::Iterator DoubleLinkedList<T>::begin() const 
+inline typename DoubleLinkedList<T>::Iterator DoubleLinkedList<T>::begin()
 {
     return typename DoubleLinkedList<T>::Iterator(first);
 }
 
 template<class T>
-inline typename DoubleLinkedList<T>::Iterator DoubleLinkedList<T>::end() const
+inline typename DoubleLinkedList<T>::Iterator DoubleLinkedList<T>::end()
 {
     return typename DoubleLinkedList<T>::Iterator();
 }
 
 template<class T>
-inline DoubleLinkedList<T>::ReverseIterator::ReverseIterator(): current(nullptr), next(nullptr){}
-
-template<class T>
-inline DoubleLinkedList<T>::ReverseIterator::ReverseIterator(DoubleLinkedList<T>::Node* node): current(node), next(nullptr){}
-
-template<class T>
-inline typename DoubleLinkedList<T>::ReverseIterator& DoubleLinkedList<T>::ReverseIterator::operator++()
+inline typename DoubleLinkedList<T>::const_Iterator DoubleLinkedList<T>::begin() const
 {
-    if (current != nullptr)
-    {
-        next = current;
-        current = current->prev;
-    }
-
-    return *this;
+    return typename DoubleLinkedList<T>::const_Iterator(first);
 }
 
 template<class T>
-inline typename DoubleLinkedList<T>::ReverseIterator DoubleLinkedList<T>::ReverseIterator::operator++(int)
+inline typename DoubleLinkedList<T>::const_Iterator DoubleLinkedList<T>::end() const
 {
-    typename DoubleLinkedList<T>::ReverseIterator tmp = *this;
-    ++*this;
-    return tmp;
+    return typename DoubleLinkedList<T>::const_Iterator();
 }
 
 template<class T>
-inline T& DoubleLinkedList<T>::ReverseIterator::operator*()
+inline typename DoubleLinkedList<T>::const_Iterator DoubleLinkedList<T>::cbegin() const
 {
-    return current->data;
+    return typename DoubleLinkedList<T>::const_Iterator(first);
 }
 
 template<class T>
-inline const T& DoubleLinkedList<T>::ReverseIterator::operator*() const
+inline typename DoubleLinkedList<T>::const_Iterator DoubleLinkedList<T>::cend() const
 {
-    return current->data;
+    return typename DoubleLinkedList<T>::const_Iterator();
 }
 
 template<class T>
-inline bool DoubleLinkedList<T>::ReverseIterator::operator!=(const DoubleLinkedList<T>::ReverseIterator& other)
-{
-    return current != other.current;
-}
-
-template<class T>
-inline bool DoubleLinkedList<T>::ReverseIterator::operator==(const DoubleLinkedList<T>::ReverseIterator& other)
-{
-    return !(*this != other);
-}
-
-template<class T>
-inline typename DoubleLinkedList<T>::ReverseIterator DoubleLinkedList<T>::rbegin() const 
+inline typename DoubleLinkedList<T>::ReverseIterator DoubleLinkedList<T>::rbegin()
 {
     return typename DoubleLinkedList<T>::ReverseIterator(last);
 }
 
 template<class T>
-inline typename DoubleLinkedList<T>::ReverseIterator DoubleLinkedList<T>::rend() const
+inline typename DoubleLinkedList<T>::ReverseIterator DoubleLinkedList<T>::rend()
 {
     return typename DoubleLinkedList<T>::ReverseIterator();
+}
+
+template<class T>
+inline typename DoubleLinkedList<T>::const_ReverseIterator DoubleLinkedList<T>::rbegin() const
+{
+    return typename DoubleLinkedList<T>::const_ReverseIterator(last);
+}
+
+template<class T>
+inline typename DoubleLinkedList<T>::const_ReverseIterator DoubleLinkedList<T>::rend() const
+{
+    return typename DoubleLinkedList<T>::const_ReverseIterator();
+}
+
+template<class T>
+inline typename DoubleLinkedList<T>::const_ReverseIterator DoubleLinkedList<T>::crbegin() const
+{
+    return typename DoubleLinkedList<T>::const_ReverseIterator(last);
+}
+
+template<class T>
+inline typename DoubleLinkedList<T>::const_ReverseIterator DoubleLinkedList<T>::crend() const
+{
+    return typename DoubleLinkedList<T>::const_ReverseIterator();
 }
 
 template<class T>
