@@ -1,7 +1,7 @@
 #ifndef _MY_REVERSE_ITERATOR_HPP_
 #define _MY_REVERSE_ITERATOR_HPP_
 
-#include "reverseIterator.h"
+#include "ReverseIterator.h"
 
 template<class T>
 inline DoubleLinkedList<T>::ReverseIterator::ReverseIterator(): current(nullptr){}
