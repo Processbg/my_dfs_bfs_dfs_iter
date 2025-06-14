@@ -232,4 +232,38 @@ inline size_t DoubleLinkedList<T>::numElements() const
     return numberOfElements;
 }
 
+template<class T>
+inline void DoubleLinkedList<T>::remove(const T& value)
+{
+    Node* current = first;
+    while (current)
+    {
+        if (current->data == value)
+        {
+            if (current == first)
+            {
+                first = current->next;
+                if (first) first->prev = nullptr;
+                else last = nullptr;
+            }
+            else if (current == last)
+            {
+                last = current->prev;
+                if (last) last->next = nullptr;
+                else first = nullptr;
+            }
+            else
+            {
+                current->prev->next = current->next;
+                current->next->prev = current->prev;
+            }
+
+            delete current;
+            --numberOfElements;
+            return;
+        }
+        current = current->next;
+    }
+}
+
 #endif //!_MY_DOUBLE_LINKED_LIST_HPP_

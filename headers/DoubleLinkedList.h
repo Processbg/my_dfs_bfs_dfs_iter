@@ -51,6 +51,7 @@ public:
     void push_front(const T& value);
     bool isEmpty() const;
     size_t numElements() const;
+    void remove(const T& value);
 };
 
 #include "Node.h"
