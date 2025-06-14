@@ -64,6 +64,11 @@ int main()
     list.push_back(11);
 
     printDoubleLinkedList(list);
+    
+    list.remove(23);
+    std::cout << "Removed 23 form list:" << std::endl;
+
+    printDoubleLinkedList(list);
 
     int front = list.front();
     list.pop_front();
@@ -74,11 +79,13 @@ int main()
 
     printDoubleLinkedList(list);
 
+    std::cout << "Add 10 and 0 to front of list:" << std::endl;
     list.push_front(10);
     list.push_front(0);
 
     printDoubleLinkedList(list);
 
+    std::cout << "Reverse list:" << std::endl;
     printReverseDoubleLinkedList(list);
 
     Queue<int> queue;
