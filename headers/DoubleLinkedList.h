@@ -56,10 +56,10 @@ public:
 #include "Node.h"
 
 #include "Iterator.h"
-#include "constIterator.h"
+#include "ConstIterator.h"
 
-#include "reverseIterator.h"
-#include "constReverseIterator.h"
+#include "ReverseIterator.h"
+#include "ConstReverseIterator.h"
 
 #include "DoubleLinkedList.hpp"
 

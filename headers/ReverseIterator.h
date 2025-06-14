@@ -21,6 +21,6 @@ private:
     Node* current;
 };
 
-#include "reverseIterator.hpp"
+#include "ReverseIterator.hpp"
 
 #endif //!_MY_REVERSE_ITERATOR_H_

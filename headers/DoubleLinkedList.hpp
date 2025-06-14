@@ -120,6 +120,7 @@ inline void DoubleLinkedList<T>::copy(const DoubleLinkedList<T>& other)
 {
     if (other.first == nullptr)
     {
+        first = last = nullptr;
         return;
     }
 
@@ -136,6 +137,7 @@ inline void DoubleLinkedList<T>::copy(const DoubleLinkedList<T>& other)
         current = current->next;
         ++numberOfElements;
     }
+    last = current;
 }
 
 template<class T>
