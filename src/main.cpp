@@ -70,9 +70,9 @@ int main()
 
     printDoubleLinkedList(list);
 
-    int front = list.front();
+    int toPop = list.front();
     list.pop_front();
-    std::cout << "Pop first value form list: " << front << std::endl;
+    std::cout << "Pop first value form list: " << toPop << std::endl;
     int back = list.back();
     list.pop_back();
     std::cout << "Pop last value form list: " << back << std::endl;
@@ -98,7 +98,7 @@ int main()
 
     printQueue(queue);
 
-    front = queue.front();
+    int front = queue.front();
     queue.dequeue();
     std::cout << "Pop first value from queue: " << front << std::endl;
 
