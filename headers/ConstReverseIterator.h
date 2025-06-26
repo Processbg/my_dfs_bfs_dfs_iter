@@ -10,13 +10,14 @@ public:
     const_ReverseIterator();
     const_ReverseIterator(const Node* node);
     const_ReverseIterator(const ReverseIterator& it);
+
     const_ReverseIterator& operator++();
     const_ReverseIterator operator++(int);
     const_ReverseIterator& operator--();
+
     const T& operator*() const;
     bool operator!=(const const_ReverseIterator& other) const;
     bool operator==(const const_ReverseIterator& other) const;
-
 private:
     const Node* current;
 };

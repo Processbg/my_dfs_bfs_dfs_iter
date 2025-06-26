@@ -10,13 +10,14 @@ class DoubleLinkedList<T>::ReverseIterator
 public:
     ReverseIterator();
     ReverseIterator(Node* node);
+
     ReverseIterator& operator++();
     ReverseIterator operator++(int);
     ReverseIterator& operator--();
+
     T& operator*();
     bool operator!=(const ReverseIterator& other) const;
     bool operator==(const ReverseIterator& other) const;
-    
 private:
     Node* current;
 };
